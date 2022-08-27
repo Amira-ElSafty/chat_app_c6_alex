@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "521546467446",
+    "project_id": "chat-app-alex-c6",
+    "storage_bucket": "chat-app-alex-c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521546467446:android:7e027de7420222028bb757",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_chat_c6_alex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521546467446-ufm7pbrrt9vb5lgvcpvs62tf6gf10jrl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3a3Wgsf-QHPOPQXdkiSfgh4fyI33cgIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521546467446-ufm7pbrrt9vb5lgvcpvs62tf6gf10jrl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_chat_c6_alex/model/my_user.dart';
+import 'package:flutter_app_chat_c6_alex/providers/user_provider.dart';
 import 'package:flutter_app_chat_c6_alex/ui/home/home_screen.dart';
 import 'package:flutter_app_chat_c6_alex/ui/login/login_screen.dart';
 import 'package:flutter_app_chat_c6_alex/ui/register/register_navigator.dart';
@@ -171,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterNavi
     if(formKey.currentState?.validate() == true){
       // logic register
       // call view model w send email , password to make register
-      viewModel.registerFireBaseAuth(email, password);
+      viewModel.registerFireBaseAuth(email, password,firstName,lastName,userName);
     }
   }
 
@@ -196,7 +198,9 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterNavi
   }
 
   @override
-  void navigatorToHomeScreen() {
+  void goToHome(MyUser user) {
+    var provider = Provider.of<UserProvider>(context , listen: false);
+    provider.user = user ;
     Timer(Duration(milliseconds: 5000),(){
       Navigator.of(context).pushNamed(HomeScreeen.routeName);
     });

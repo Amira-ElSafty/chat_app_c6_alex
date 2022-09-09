@@ -58,5 +58,9 @@ class DataBaseUtils{
     message.id = docRef.id ;
     return docRef.set(message);
   }
+  static Stream<QuerySnapshot<Message>>getMessages(String roomId){
+    return getMessageCollection(roomId).orderBy('dateTime').snapshots();
+  }
+
 
 }

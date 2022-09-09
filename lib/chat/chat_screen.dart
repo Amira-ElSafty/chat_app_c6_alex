@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_chat_c6_alex/chat/chat_navigator.dart';
 import 'package:flutter_app_chat_c6_alex/chat/chat_screen_view_model.dart';
+import 'package:flutter_app_chat_c6_alex/chat/message_screen.dart';
+import 'package:flutter_app_chat_c6_alex/model/message.dart';
 import 'package:flutter_app_chat_c6_alex/model/room.dart';
 import 'package:flutter_app_chat_c6_alex/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +34,7 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
     var userProvider = Provider.of<UserProvider>(context);
     viewModel.room = args ;
     viewModel.currentUser = userProvider.user;
+    viewModel.UpdateRoomMessages();
 
     return ChangeNotifierProvider(
         create: (context) => viewModel,
@@ -70,7 +74,26 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Expanded(child: Text('chat')),
+                  Expanded(child: StreamBuilder<QuerySnapshot<Message>>(
+                    stream: viewModel.streamMessage,
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if(snapshot.hasError){
+                        return Center(
+                          child: Text(snapshot.error.toString()),
+                        );
+                      }
+                      var messages = snapshot.data?.docs.map((doc) => doc.data()).toList();
+                      return  ListView.builder(itemBuilder: (context,index){
+                        return MessageItem(message: messages!.elementAt(index));
+                      },
+                        itemCount:messages?.length ?? 0 ,
+                      );
+                    }),
+                  ),
                   Row(
                     children: [
                       Expanded(

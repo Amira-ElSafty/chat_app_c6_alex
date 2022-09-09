@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_chat_c6_alex/chat/chat_navigator.dart';
 import 'package:flutter_app_chat_c6_alex/database/database_utils.dart';
@@ -10,6 +11,7 @@ class ChatScreenViewModel extends ChangeNotifier{
   late ChatNavigator navigator ;
   late Room room ;
   late MyUser? currentUser ;
+  late Stream<QuerySnapshot<Message>> streamMessage ;
 
   void sendMessage(String messageContent) async{
     if(messageContent.trim().isEmpty){
@@ -28,6 +30,10 @@ class ChatScreenViewModel extends ChangeNotifier{
     }catch(error){
       navigator.showMessage(error.toString());
     }
+  }
+
+  void UpdateRoomMessages(){
+    streamMessage = DataBaseUtils.getMessages(room.id);
   }
 
 
